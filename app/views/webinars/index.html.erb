@@ -1,7 +1,7 @@
 <table>
   <% @webinars.each do |webinar| %>
     <tr>
-      <td><%= webinar.title %></td>
+      <td><%= link_to webinar.title, webinar %></td>
       <td><%= webinar.description %></td>
       <td><%= webinar.start %></td>
     </tr>

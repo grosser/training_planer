@@ -2,7 +2,7 @@ class WebinarsController < ApplicationController
   before_filter :authenticate, :only => [:new, :create]
 
   def index
-    @webinars = Webinar.where('start > NOW()').order('start ASC')
+    @webinars = Webinar.where('start IS NULL OR start > NOW()').order('start ASC')
   end
 
   def new
