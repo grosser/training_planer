@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe WebinarsController do
-  def self.it_is_protected
+  def self.it_is_protected(action)
     it "is protected" do
-      get :new
+      get action
       response.status.should == 401
     end
   end
@@ -26,7 +26,7 @@ describe WebinarsController do
   end
 
   describe "#new" do
-    it_is_protected
+    it_is_protected :new
 
     it "renders" do
       auth
@@ -36,7 +36,7 @@ describe WebinarsController do
   end
 
   describe "#create" do
-    it_is_protected
+    it_is_protected :create
 
     it "saves" do
       auth
