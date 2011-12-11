@@ -51,6 +51,6 @@ describe "Webinar sign up" do
 
     # person gets a confirmation
     open_email 'new@email.com'
-    current_email.body.should =~ /signed up/
+    current_email.body.should include('has been confirmed!')
   end
 end
