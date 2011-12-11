@@ -1,0 +1,25 @@
+<% if flash[:alert] %>
+  <div class="alert-message error">
+    <a class="close" href="#">×</a>
+    <p>
+      <% if flash[:alert] == :default %>
+        An error occurred.
+      <% else %>
+        <%= flash[:alert] %>
+      <% end %>
+    </p>
+  </div>
+<% end %>
+
+<% if flash[:notice] %>
+  <div class="alert-message success">
+    <a class="close" href="#">×</a>
+    <p>
+      <% if flash[:notice] == :default %>
+        Success!
+      <% else %>
+        <%= flash[:notice] %>
+      <% end %>
+    </p>
+  </div>
+<% end %>

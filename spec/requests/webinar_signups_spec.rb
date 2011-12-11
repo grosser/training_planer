@@ -7,7 +7,9 @@ describe "Webinar sign up" do
     visit webinar_path webinar
 
     fill_in 'email', :with => person.email
-    click "RSVP"
-    wait_until{ page.has_content? 'You are signed now up for' }
+    click_button "RSVP"
+    wait_until{ page.has_content? 'your inbox' }
+
+    last_email_sent
   end
 end

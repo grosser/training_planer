@@ -10,4 +10,8 @@
 //= require_tree .
 
 $(function(){
+  $('.alert-message .close').live('click', function(){
+    $(this).parent().remove();
+    return false;
+  })
 })

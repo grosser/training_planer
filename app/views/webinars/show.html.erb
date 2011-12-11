@@ -17,8 +17,9 @@
 <p>
   <h3>RSVP ?</h3>
   <%= form_tag '/participations' do %>
+    <%= hidden_field_tag :webinar_id, @webinar.id %>
     <%= input_row label_tag('Your Email') do %>
-      <%= text_field_tag :email %>
+      <%= email_field_tag :email %>
     <% end %>
 
     <div class="actions">
