@@ -25,6 +25,7 @@ gem 'jquery-rails'
 
 group :development do
   gem 'heroku'
+  gem 'spork', '0.9.0.rc9'
 end
 
 group :development, :test do

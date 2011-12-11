@@ -1,0 +1,9 @@
+<table>
+  <% @webinars.each do |webinar| %>
+    <tr>
+      <td><%= webinar.title %></td>
+      <td><%= webinar.description %></td>
+      <td><%= webinar.start %></td>
+    </tr>
+  <% end %>
+</table>
