@@ -1,12 +1,12 @@
 <% @page_title = (@webinar.new_record? ? 'New Webinar' : "Webinar #{@webinar.title}") %>
 <%= form_for @webinar do |f| %>
-  <%= input_row f, :title %>
+  <%= form_input_row f, :title %>
 
-  <%= input_row f, :description do %>
+  <%= form_input_row f, :description do %>
     <%= f.text_area :description, :style => 'height: 200px' %>
   <% end %>
 
-  <%= input_row f, :start do %>
+  <%= form_input_row f, :start do %>
     <%= f.text_field :start, :placeholder => 'YYYY-MM-DD HH:MM' %>
   <% end %>
 

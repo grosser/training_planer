@@ -7,18 +7,22 @@ module ApplicationHelper
     ("&nbsp;" * count).html_safe
   end
 
-  def input_row(f, field, &block)
+  def form_input_row(f, field, &block)
+    text = f.text_field field unless block_given?
+    error = 'error' if f.object.errors[field].present?
+    input_row(f.label(field), :text => text, :class => error, &block)
+  end
+
+  def input_row(label, options={}, &block)
     input = if block_given?
       capture(&block)
     else
-      f.text_field field
+      options[:text]
     end
 
-    error = 'error' if f.object.errors[field].present?
-
     <<-HTML.html_safe
-    <div class="clearfix #{error}">
-      #{f.label field}
+    <div class="clearfix #{options[:class]}">
+      #{label}
       <div class="input">#{ input }</div>
     </div>
     HTML

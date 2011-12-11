@@ -32,4 +32,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'delorean'
+  gem 'capybara'
+  gem 'launchy'
 end

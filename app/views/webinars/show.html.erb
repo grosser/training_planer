@@ -12,3 +12,18 @@
   Participants <%= @webinar.participations.count %>
 </p>
 
+<br/><br/><br/>
+
+<p>
+  <h3>RSVP ?</h3>
+  <%= form_tag '/participations' do %>
+    <%= input_row label_tag('Your Email') do %>
+      <%= text_field_tag :email %>
+    <% end %>
+
+    <div class="actions">
+      <%= submit_tag 'RSVP', :class => 'btn primary' %>
+    </div>
+  <% end %>
+</p>
+
