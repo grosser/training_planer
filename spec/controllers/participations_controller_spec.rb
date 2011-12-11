@@ -24,8 +24,33 @@ describe ParticipationsController do
         last_email_sent.to.should == [person.email]
       end
 
-      it "shows the user that he should heck his inbox" do
+      it "shows the user that he should check his inbox" do
         post :create, :email => person.email, :webinar_id => webinar.id
+        flash[:notice].should =~ /confirmation.*inbox/i
+      end
+    end
+
+    context "when a person is unknown but has a qualified email" do
+      it "does not create a participation" do
+        lambda{
+          post :create, :email => 'new@email.com', :webinar_id => webinar.id
+        }.should_not change{ Participation.count }
+      end
+
+      it "creates a person" do
+        lambda{
+          post :create, :email => 'new@email.com', :webinar_id => webinar.id
+        }.should change{ Person.count }.by +1
+        Person.last.verified_for_webinar.should == true
+      end
+
+      it "sends a confirmation mail" do
+        post :create, :email => 'new@email.com', :webinar_id => webinar.id
+        last_email_sent.to.should == ['new@email.com']
+      end
+
+      it "shows the user that he should check his inbox" do
+        post :create, :email => 'new@email.com', :webinar_id => webinar.id
         flash[:notice].should =~ /confirmation.*inbox/i
       end
     end

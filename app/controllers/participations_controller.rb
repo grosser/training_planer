@@ -1,7 +1,10 @@
 class ParticipationsController < ApplicationController
   def create
     @webinar = Webinar.find(params[:webinar_id])
-    @person = Person.find_or_create_by_email(params[:email])
+    unless @person = Person.find_by_email(params[:email])
+      @person = Person.create(:email => params[:email], :verified_for_webinar => true)
+    end
+
     ParticipationMailer.
       confirm_verified_rsvp(@person, @webinar).
       deliver
