@@ -13,7 +13,7 @@ describe ParticipationsController do
     context "with known person" do
       context "verified" do
         before do
-          person.update_attriutes!(:verified_for_webinar => true)
+          person.update_attributes!(:verified_for_webinar => true)
         end
 
         it "does not create a participation" do

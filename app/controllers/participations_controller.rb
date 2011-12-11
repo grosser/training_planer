@@ -2,7 +2,7 @@ class ParticipationsController < ApplicationController
   def create
     @webinar = Webinar.find(params[:webinar_id])
     if @person = Person.find_by_email(params[:email])
-      @person.update_attriutes(:reason_to_participate => params[:reason_to_participate])
+      @person.update_attributes(:reason_to_participate => params[:reason_to_participate])
     else
       @person = Person.create(:email => params[:email], :reason_to_participate => params[:reason_to_participate])
     end
