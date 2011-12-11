@@ -13,6 +13,7 @@ describe "Webinar sign up" do
   def rsvp(email)
     visit webinar_path webinar
     fill_in 'email', :with => email
+    fill_in 'reason_to_participate', :with => 'Its me, dont you remember!?'
     click_button "RSVP"
   end
 
@@ -32,21 +33,17 @@ describe "Webinar sign up" do
   end
 
   it "allows me to sign up with a new account on .org" do
-    rsvp 'new@email.com'
-    confirm_via_email 'new@email.com'
+    rsvp 'new@email.org'
+    confirm_via_email 'new@email.org'
   end
 
-  it "waits util the admin confirms when I have a .com email" do
-    # person fills out email and the reason
-    rsvp 'new@email.com'
-    fill_in 'reason', :with => 'Its me, dont you remember!?'
-
+  it "waits until the admin confirms when I have a .com email" do
     lambda{
-      click_button 'RSVP'
+      rsvp 'new@email.com'
     }.should change{ Person.count }.by +1
 
     # admin answers the mail
-    wait_until{ page.has_content? 'wait for' }
+    wait_until{ page.has_content? 'wait until an admin' }
     open_email CFG[:admin_email]
     lambda{
       visit_in_email 'confirm'

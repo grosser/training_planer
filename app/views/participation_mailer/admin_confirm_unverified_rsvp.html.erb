@@ -5,6 +5,6 @@
 <br/>
 
 Reason:
-<%= @person.reason_to_participate.gsub(/\r?\n/,"<br/>") %>
+<%= @person.reason_to_participate.to_s.gsub(/\r?\n/,"<br/>") %>
 
-Confirm person for webinars <b><%= link_to "confirm", confirm_participation_url(UrlStore.encode("#{@person.id}-#{@webinar.id}")) %></b>
+Confirm person for webinars <b><%= link_to "confirm", confirm_participation_url(UrlStore.encode("#{@person.id}-#{@webinar.id}"), :confirmed_by_admin => true) %></b>

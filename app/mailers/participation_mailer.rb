@@ -13,4 +13,10 @@ class ParticipationMailer < ActionMailer::Base
     @person = person
     mail(:to => CFG[:admin_email], :subject => "Please confirm RSVP of #{person.email} for #{webinar.title}")
   end
+
+  def admin_confirmed_your_rsvp(person, webinar)
+    @webinar = webinar
+    @person = person
+    mail(:to => person.email, :subject => "Your RSVP for #{webinar.title} is confirmed!")
+  end
 end

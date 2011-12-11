@@ -136,5 +136,16 @@ describe ParticipationsController do
       }.should_not change{ Participation.count }
       response.body.should include('INVALID URL')
     end
+
+    it "sends an email to the person if the admin confirmed it" do
+      person.update_attributes(:verified_for_webinar => false)
+
+      lambda{
+        get :confirm, :id => code, :confirmed_by_admin => true
+      }.should change{ Participation.count }.by +1
+
+      last_email_sent.to.should == [person.email]
+      person.reload.verified_for_webinar.should == true
+    end
   end
 end
