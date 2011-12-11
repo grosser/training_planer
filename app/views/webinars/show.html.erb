@@ -22,6 +22,11 @@
       <%= email_field_tag :email %>
     <% end %>
 
+    <% label = "<label>Why do you want to participate<br/><br/><small>Optional if you already participated once</small></label>".html_safe %>
+    <%= input_row label do %>
+      <%= text_area_tag :reason_to_participate, "Hi I am _____ ____\nI work for _____\nI want to learn about ____", :size => '40x4' %>
+    <% end %>
+
     <div class="actions">
       <%= submit_tag 'RSVP', :class => 'btn primary' %>
     </div>

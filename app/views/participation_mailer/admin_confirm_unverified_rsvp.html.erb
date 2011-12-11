@@ -1,0 +1,10 @@
+<%= @person.email %> wants to participate in <%= link_to @webinar.title, @webinar %>
+<br/>
+<%= @webinar.start %><br/>
+<br/>
+<br/>
+
+Reason:
+<%= @person.reason_to_participate.gsub(/\r?\n/,"<br/>") %>
+
+Confirm person for webinars <b><%= link_to "confirm", confirm_participation_url(UrlStore.encode("#{@person.id}-#{@webinar.id}")) %></b>

@@ -1,14 +1,23 @@
 class ParticipationsController < ApplicationController
   def create
     @webinar = Webinar.find(params[:webinar_id])
-    unless @person = Person.find_by_email(params[:email])
-      @person = Person.create(:email => params[:email], :verified_for_webinar => true)
+    if @person = Person.find_by_email(params[:email])
+      @person.update_attriutes(:reason_to_participate => params[:reason_to_participate])
+    else
+      @person = Person.create(:email => params[:email], :reason_to_participate => params[:reason_to_participate])
     end
 
-    ParticipationMailer.
-      confirm_verified_rsvp(@person, @webinar).
-      deliver
-    redirect_to @webinar, :notice => "An email with a confirmation link was sent to #{params[:email]}, please <b>open your inbox</b> and click it.".html_safe
+    if @person.verified_for_webinar?
+      ParticipationMailer.
+        confirm_verified_rsvp(@person, @webinar).
+        deliver
+      redirect_to @webinar, :notice => "An email with a confirmation link was sent to #{params[:email]}, please <b>open your inbox</b> and click it.".html_safe
+    else
+      ParticipationMailer.
+        admin_confirm_unverified_rsvp(@person, @webinar).
+        deliver
+      redirect_to @webinar, :notice => "Please wait until an admin confirms your request."
+    end
   end
 
   def confirm

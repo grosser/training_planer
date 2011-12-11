@@ -7,4 +7,8 @@ class ParticipationMailer < ActionMailer::Base
     @person = person
     mail(:to => person.email, :subject => "Please confirm your RSVP to #{webinar.title}")
   end
+
+  def admin_confirm_unverified_rsvp(person, webinar)
+
+  end
 end

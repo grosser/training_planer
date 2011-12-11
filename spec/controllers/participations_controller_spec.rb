@@ -2,56 +2,113 @@ require 'spec_helper'
 
 describe ParticipationsController do
   describe "#create" do
-    let(:person) { Factory(:person, :verified_for_webinar => true) }
     let(:webinar) { Factory(:webinar) }
+    let(:person) { Factory(:person) }
+    let(:email) { person.email }
 
-    context "when a person is already know and verified" do
-      it "does not create a participation" do
-        lambda{
-          post :create, :email => person.email, :webinar_id => webinar.id
-        }.should_not change{ Participation.count }
+    def make_request
+      post :create, :email => email, :webinar_id => webinar.id, :reason_to_participate => 'xxx'
+    end
+
+    context "with known person" do
+      context "verified" do
+        before do
+          person.update_attriutes!(:verified_for_webinar => true)
+        end
+
+        it "does not create a participation" do
+          lambda{ make_request }.should_not change{ Participation.count }
+        end
+
+        it "does not create a person" do
+          person
+          lambda{ make_request }.should_not change{ Person.count }
+          person.reload.reason_to_participate.should == 'xxx'
+        end
+
+        it "sends a confirmation mail" do
+          make_request
+          last_email_sent.to.should == [person.email]
+        end
+
+        it "shows the user that he should check his inbox" do
+          make_request
+          flash[:notice].should =~ /confirmation.*inbox/i
+        end
       end
 
-      it "does not create a person" do
-        person
-        lambda{
-          post :create, :email => person.email, :webinar_id => webinar.id
-        }.should_not change{ Person.count }
-      end
+      context "unverified" do
+        it "does not create a participation" do
+          lambda{ make_request }.should_not change{ Participation.count }
+        end
 
-      it "sends a confirmation mail" do
-        post :create, :email => person.email, :webinar_id => webinar.id
-        last_email_sent.to.should == [person.email]
-      end
+        it "does not create a person" do
+          person
+          lambda{ make_request }.should_not change{ Person.count }
+          person.reload.reason_to_participate.should == 'xxx'
+        end
 
-      it "shows the user that he should check his inbox" do
-        post :create, :email => person.email, :webinar_id => webinar.id
-        flash[:notice].should =~ /confirmation.*inbox/i
+        it "sends a confirmation mail to the admin" do
+          make_request
+          last_email_sent.to.should == [CFG[:admin_email]]
+        end
+
+        it "shows the user that he should wait for the admin" do
+          make_request
+          flash[:notice].should =~ /wait/i
+        end
       end
     end
 
-    context "when a person is unknown but has a qualified email" do
-      it "does not create a participation" do
-        lambda{
-          post :create, :email => 'new@email.com', :webinar_id => webinar.id
-        }.should_not change{ Participation.count }
+    context "unknown person" do
+      let(:person) { nil }
+
+      context "with qualified email" do
+        let(:email) { 'new@email.org' }
+
+        it "does not create a participation" do
+          lambda{ make_request }.should_not change{ Participation.count }
+        end
+
+        it "creates a verified person" do
+          lambda{ make_request }.should change{ Person.count }.by +1
+          Person.last.verified_for_webinar.should == true
+          Person.last.reason_to_participate.should == 'xxx'
+        end
+
+        it "sends a confirmation mail" do
+          make_request
+          last_email_sent.to.should == ['new@email.org']
+        end
+
+        it "shows the user that he should check his inbox" do
+          make_request
+          flash[:notice].should =~ /confirmation.*inbox/i
+        end
       end
 
-      it "creates a person" do
-        lambda{
-          post :create, :email => 'new@email.com', :webinar_id => webinar.id
-        }.should change{ Person.count }.by +1
-        Person.last.verified_for_webinar.should == true
-      end
+      context "with unqualified email" do
+        let(:email) { 'new@email.com' }
 
-      it "sends a confirmation mail" do
-        post :create, :email => 'new@email.com', :webinar_id => webinar.id
-        last_email_sent.to.should == ['new@email.com']
-      end
+        it "does not create a participation" do
+          lambda{ make_request }.should_not change{ Participation.count }
+        end
 
-      it "shows the user that he should check his inbox" do
-        post :create, :email => 'new@email.com', :webinar_id => webinar.id
-        flash[:notice].should =~ /confirmation.*inbox/i
+        it "sends a confirmation mail to the admin" do
+          make_request
+          last_email_sent.to.should == [CFG[:admin_email]]
+        end
+
+        it "creates unverified person" do
+          lambda{ make_request }.should change{ Person.count }.by +1
+          Person.last.verified_for_webinar.should == false
+          Person.last.reason_to_participate.should == 'xxx'
+        end
+
+        it "shows the user that he should wait for the admin" do
+          make_request
+          flash[:notice].should =~ /wait/i
+        end
       end
     end
   end

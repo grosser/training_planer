@@ -18,4 +18,12 @@ describe ParticipationMailer do
     last_email_sent.body.should include('RSVP')
     last_email_sent.to.should == [person.email]
   end
+
+  it "confirms admin unverified rsvp" do
+    webinar = Factory(:webinar)
+    person = Factory(:person)
+    ParticipationMailer.admin_confirm_unverified_rsvp(person, webinar).deliver
+    last_email_sent.body.should include('RSVP')
+    last_email_sent.to.should == [CFG[:admin_email]]
+  end
 end

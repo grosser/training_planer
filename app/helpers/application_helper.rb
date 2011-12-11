@@ -7,6 +7,10 @@ module ApplicationHelper
     ("&nbsp;" * count).html_safe
   end
 
+  def br(count=1)
+    ('<br/>' * count).html_safe
+  end
+
   def form_input_row(f, field, &block)
     text = f.text_field field unless block_given?
     error = 'error' if f.object.errors[field].present?

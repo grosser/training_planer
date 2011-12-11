@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111210230035) do
+ActiveRecord::Schema.define(:version => 20111211195046) do
 
   create_table "memberships", :force => true do |t|
     t.integer  "person_id",       :null => false
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20111210230035) do
     t.boolean  "received_login",          :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "reason_to_participate"
   end
 
   add_index "people", ["email"], :name => "index_people_on_email", :unique => true
