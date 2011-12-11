@@ -19,4 +19,8 @@ class WebinarsController < ApplicationController
       render 'new'
     end
   end
+
+  def show
+    @webinar = Webinar.find(params[:id])
+  end
 end

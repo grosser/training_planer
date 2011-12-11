@@ -14,8 +14,10 @@ module ApplicationHelper
       f.text_field field
     end
 
+    error = 'error' if f.object.errors[field].present?
+
     <<-HTML.html_safe
-    <div class="clearfix">
+    <div class="clearfix #{error}">
       #{f.label field}
       <div class="input">#{ input }</div>
     </div>

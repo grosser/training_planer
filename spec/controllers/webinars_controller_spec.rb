@@ -58,4 +58,11 @@ describe WebinarsController do
       response.should render_template 'new'
     end
   end
+
+  describe "#show" do
+    it "renders" do
+      get :show, :id => Factory(:webinar).to_param
+      response.should render_template 'show'
+    end
+  end
 end
