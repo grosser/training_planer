@@ -3,4 +3,4 @@ To RSVP for Webinar <%= link_to @webinar.title, @webinar %><br/>
 <br/>
 <br/>
 
-Please click <b><%= link_to "confirm", 'xxx' %></b>
+Please click <b><%= link_to "confirm", confirm_participation_url(UrlStore.encode("#{@person.id}-#{@webinar.id}")) %></b>

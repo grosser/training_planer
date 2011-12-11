@@ -10,6 +10,9 @@ describe "Webinar sign up" do
     click_button "RSVP"
     wait_until{ page.has_content? 'your inbox' }
 
-    last_email_sent
+    open_email person.email
+    visit_in_email 'confirm'
+
+    wait_until{ page.has_content? 'Success' }
   end
 end

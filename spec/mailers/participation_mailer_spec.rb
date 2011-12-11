@@ -13,8 +13,9 @@ describe ParticipationMailer do
 
   it "confirm_rsvp" do
     webinar = Factory(:webinar)
-    ParticipationMailer.confirm_verified_rsvp('xxx@yyy.com', webinar).deliver
+    person = Factory(:person)
+    ParticipationMailer.confirm_verified_rsvp(person, webinar).deliver
     last_email_sent.body.should include('RSVP')
-    last_email_sent.to.should == ['xxx@yyy.com']
+    last_email_sent.to.should == [person.email]
   end
 end

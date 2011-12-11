@@ -13,6 +13,8 @@ Spork.prefork do
     config.fixture_path = "#{::Rails.root}/spec/fixtures"
     config.use_transactional_fixtures = true
     config.render_views
+    config.include EmailSpec::Helpers
+    config.include EmailSpec::Matchers
   end
 end
 

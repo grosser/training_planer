@@ -1,0 +1,1 @@
+UrlStore.defaults = {:secret => 'asdjasdgaygzcygfcxycxzfcxcx'}

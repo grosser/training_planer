@@ -6,7 +6,11 @@ WebinarPlaner::Application.routes.draw do
 
   resources :webinars
   resources :people
-  resources :participations
+  resources :participations do
+    member do
+      get :confirm
+    end
+  end
 
   #   match 'products/:id' => 'catalog#view'
 
