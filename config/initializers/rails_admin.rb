@@ -11,7 +11,7 @@ end
 RailsAdmin.config do |config|
   config.current_user_method do
     authenticate_or_request_with_http_basic do |username, password|
-      username == "webinaradmin" && password == "adminwebinar"
+      username == CFG[:basic_auth][:username] && password == CFG[:basic_auth][:password]
     end
     FakeUser
   end
