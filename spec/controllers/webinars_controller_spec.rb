@@ -1,13 +1,6 @@
 require 'spec_helper'
 
 describe WebinarsController do
-  def self.it_is_protected(action)
-    it "is protected" do
-      get action
-      response.status.should == 401
-    end
-  end
-
   def auth(username=CFG[:basic_auth][:username], password=CFG[:basic_auth][:password])
     @request.env['HTTP_AUTHORIZATION'] = "Basic #{ActiveSupport::Base64.encode64("#{username}:#{password}")}"
   end
@@ -26,7 +19,7 @@ describe WebinarsController do
   end
 
   describe "#new" do
-    it_is_protected :new
+    it_behaves_like "protected", :get, :new
 
     it "renders" do
       auth
@@ -36,7 +29,7 @@ describe WebinarsController do
   end
 
   describe "#create" do
-    it_is_protected :create
+    it_behaves_like "protected", :post, :create
 
     it "saves" do
       auth
