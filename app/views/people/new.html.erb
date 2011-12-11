@@ -1,0 +1,16 @@
+<% @page_title = (@person.new_record? ? 'New Person' : @person.full_name) %>
+<%= form_for @person do |f| %>
+  <%= input_row f, :name do %>
+    <%= f.text_field :first_name %>
+    <%= f.text_field :last_name %>
+  <% end %>
+
+  <%= input_row f, :email do %>
+    <%= f.email_field :email %>
+  <% end %>
+  <%= input_row f, :address %>
+
+  <div class="actions">
+    <%= form_button f %>
+  </div>
+<% end %>

@@ -1,0 +1,14 @@
+<% @page_title = "Webinar #{@person.full_name}" %>
+
+<p>
+  <%= @person.email %>
+</p>
+
+<p>
+  <%= @person.address %>
+</p>
+
+<p>
+  Webinars <%= @person.participations.count %>
+</p>
+

@@ -5,6 +5,7 @@ WebinarPlaner::Application.routes.draw do
   match 'home(/:action(/:id(.:format)))', :controller => :home
 
   resources :webinars
+  resources :people
 
   #   match 'products/:id' => 'catalog#view'
 

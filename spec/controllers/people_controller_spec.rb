@@ -1,16 +1,20 @@
 require 'spec_helper'
 
-describe WebinarsController do
+describe PeopleController do
   describe "#index" do
+    it_behaves_like "protected", :index
+
     it "renders" do
+      auth
       get :index
       response.should render_template :index
     end
 
-    it "lists webinars" do
-      webinar = Factory(:webinar)
+    it "lists people" do
+      auth
+      person = Factory(:person)
       get :index
-      assigns(:webinars).should == [webinar]
+      assigns(:people).should == [person]
     end
   end
 
@@ -30,18 +34,18 @@ describe WebinarsController do
     it "saves" do
       auth
       lambda{
-        post :create, :webinar => {:title => 'xxx', :start => '2012-01-01 09:00', :description => 'DDD'}
-      }.should change{ Webinar.count }.by +1
+        post :create, :person => {:first_name => 'xxx', :last_name => 'yyy', :email => 'sadads@sadasd.com'}
+      }.should change{ Person.count }.by +1
 
       flash[:notice].should_not be_blank
-      response.should redirect_to "/webinars/#{Webinar.last.to_param}"
+      response.should redirect_to "/people/#{Person.last.to_param.sub(' ','%20')}"
     end
 
     it "fails to save" do
       auth
       lambda{
-        post :create, :webinar => {:title => '', :start => '2012-01-01 09:00', :description => 'DDD'}
-      }.should change{ Webinar.count }.by 0
+        post :create, :person => {:first_name => 'xxx', :last_name => 'yyy', :email => ''}
+      }.should change{ Person.count }.by 0
 
       flash[:alert].should_not be_blank
       response.should render_template 'new'
@@ -49,8 +53,11 @@ describe WebinarsController do
   end
 
   describe "#show" do
+    it_behaves_like "protected", :show, :id => 1
+
     it "renders" do
-      get :show, :id => Factory(:webinar).to_param
+      auth
+      get :show, :id => Factory(:person).to_param
       response.should render_template 'show'
     end
   end

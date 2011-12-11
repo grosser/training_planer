@@ -4,6 +4,7 @@ class Initial < ActiveRecord::Migration
       t.string :first_name, :last_name, :address
       t.string :email, :null => false
       t.boolean :verified_for_webinar, :participated_in_webinar, :received_login, :default => false, :null => false
+      t.timestamps
     end
     add_index :people, :email, :unique => true
 
@@ -11,19 +12,23 @@ class Initial < ActiveRecord::Migration
       t.string :title
       t.text :description
       t.timestamp :start
+      t.timestamps
     end
 
     create_table :participations do |t|
       t.integer :person_id, :webinar_id, :null => false
+      t.timestamps
     end
     add_index :participations, [:person_id, :webinar_id], :unique => true
 
     create_table :organisations do |t|
       t.string :website, :address, :name
+      t.timestamps
     end
 
     create_table :memberships do |t|
       t.integer :person_id, :organisation_id, :null => false
+      t.timestamps
     end
     add_index :memberships, [:person_id, :organisation_id], :unique => true
   end
