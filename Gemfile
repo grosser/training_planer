@@ -7,7 +7,6 @@ gem 'unicorn'
 gem 'rails_admin', :git => "git://github.com/sferik/rails_admin.git"
 gem 'will_paginate', '~>3'
 gem 'helpful_fields'
-gem 'airbrake'
 gem 'url_store'
 
 # Gems used only for assets and not required
