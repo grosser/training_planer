@@ -8,6 +8,7 @@ describe ParticipationMailer do
   after do
     all_emails.each do |mail|
       mail.body.should_not =~ /="\/"/ # have a path
+      mail.body.should_not =~ /&gt;|&lt;/ # have escaped < / >
     end
   end
 
@@ -21,7 +22,7 @@ describe ParticipationMailer do
 
   it "admin_confirm_unverified_rsvp" do
     webinar = Factory(:webinar)
-    person = Factory(:person)
+    person = Factory(:person, :reason_to_participate => "bla\nblub")
     ParticipationMailer.admin_confirm_unverified_rsvp(person, webinar).deliver
     last_email_sent.body.should include('wants to')
     last_email_sent.to.should == [CFG[:admin_email]]

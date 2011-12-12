@@ -9,7 +9,7 @@ WebinarPlaner::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -49,7 +49,7 @@ WebinarPlaner::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
 
-  config.action_mailer.deconfig.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.default_url_options = {:host => 'http://webinar-planer.herokuapp.com'}
 

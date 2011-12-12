@@ -16,7 +16,7 @@ class ParticipationsController < ApplicationController
       ParticipationMailer.
         admin_confirm_unverified_rsvp(@person, @webinar).
         deliver
-      redirect_to @webinar, :notice => "Please wait until an admin confirms your request."
+      redirect_to @webinar, :notice => "Your request was sent! Please wait until an admin confirms it."
     end
   end
 
