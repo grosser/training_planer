@@ -49,6 +49,20 @@ WebinarPlaner::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
 
+  config.action_mailer.deconfig.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.default_url_options = {:host => 'http://webinar-planer.herokuapp.com'}
+
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'gmail.com',
+    :user_name            => 'webinar.planer',
+    :password             => 'webinaradmin',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true
+  }
+
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
