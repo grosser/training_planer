@@ -57,7 +57,7 @@ TrainingPlanner::Application.configure do
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => 'gmail.com',
-    :user_name            => 'training.planer',
+    :user_name            => 'my.training.planner@gmail.com',
     :password             => 'trainingadmin',
     :authentication       => 'plain',
     :enable_starttls_auto => true
