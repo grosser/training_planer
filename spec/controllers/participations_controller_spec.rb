@@ -2,18 +2,18 @@ require 'spec_helper'
 
 describe ParticipationsController do
   describe "#create" do
-    let(:webinar) { Factory(:webinar) }
+    let(:training) { Factory(:training) }
     let(:person) { Factory(:person) }
     let(:email) { person.email }
 
     def make_request
-      post :create, :email => email, :webinar_id => webinar.id, :reason_to_participate => 'xxx'
+      post :create, :email => email, :training_id => training.id, :reason_to_participate => 'xxx'
     end
 
     context "with known person" do
       context "verified" do
         before do
-          person.update_attributes!(:verified_for_webinar => true)
+          person.update_attributes!(:verified_for_training => true)
         end
 
         it "does not create a participation" do
@@ -72,7 +72,7 @@ describe ParticipationsController do
 
         it "creates a verified person" do
           lambda{ make_request }.should change{ Person.count }.by +1
-          Person.last.verified_for_webinar.should == true
+          Person.last.verified_for_training.should == true
           Person.last.reason_to_participate.should == 'xxx'
         end
 
@@ -101,7 +101,7 @@ describe ParticipationsController do
 
         it "creates unverified person" do
           lambda{ make_request }.should change{ Person.count }.by +1
-          Person.last.verified_for_webinar.should == false
+          Person.last.verified_for_training.should == false
           Person.last.reason_to_participate.should == 'xxx'
         end
 
@@ -115,8 +115,8 @@ describe ParticipationsController do
 
   describe "#confirm" do
     let(:person) { Factory(:person) }
-    let(:webinar) { Factory(:webinar) }
-    let(:code) { UrlStore.encode("#{person.id}-#{webinar.id}") }
+    let(:training) { Factory(:training) }
+    let(:code) { UrlStore.encode("#{person.id}-#{training.id}") }
 
     it "creates my participation" do
       lambda{
@@ -124,9 +124,9 @@ describe ParticipationsController do
       }.should change{ Participation.count }.by +1
 
       Participation.last.person.should == person
-      Participation.last.webinar.should == webinar
+      Participation.last.training.should == training
 
-      response.should redirect_to "/webinars/#{webinar.to_param}"
+      response.should redirect_to "/trainings/#{training.to_param}"
       flash[:notice].should_not be_blank
     end
 
@@ -138,14 +138,14 @@ describe ParticipationsController do
     end
 
     it "sends an email to the person if the admin confirmed it" do
-      person.update_attributes(:verified_for_webinar => false)
+      person.update_attributes(:verified_for_training => false)
 
       lambda{
         get :confirm, :id => code, :confirmed_by_admin => true
       }.should change{ Participation.count }.by +1
 
       last_email_sent.to.should == [person.email]
-      person.reload.verified_for_webinar.should == true
+      person.reload.verified_for_training.should == true
     end
   end
 end

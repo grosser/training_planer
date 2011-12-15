@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :webinar do |f|
+  factory :training do |f|
     f.title 'Introduction'
     f.description 'Here you learn the basics'
     f.start '2012-01-01 18:00:00'

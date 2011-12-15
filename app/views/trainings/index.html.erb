@@ -1,0 +1,9 @@
+<table>
+  <% @trainings.each do |training| %>
+    <tr>
+      <td><%= link_to training.title, training %></td>
+      <td><%= training.description %></td>
+      <td><%= training.start %></td>
+    </tr>
+  <% end %>
+</table>

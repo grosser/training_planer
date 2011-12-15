@@ -15,7 +15,7 @@ RailsAdmin.config do |config|
     end
     FakeUser
   end
-  config.main_app_name { ['Webinar Planer', 'Admin'] }
+  config.main_app_name { ['Training Planer', 'Admin'] }
   config.authenticate_with{}
 
   # Use a specific role for ActiveModel's :attr_acessible :attr_protected

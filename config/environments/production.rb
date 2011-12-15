@@ -51,14 +51,14 @@ TrainingPlanner::Application.configure do
 
   config.action_mailer.delivery_method = :smtp
 
-  config.action_mailer.default_url_options = {:host => 'webinar-planer.herokuapp.com'}
+  config.action_mailer.default_url_options = {:host => 'training-planer.herokuapp.com'}
 
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => 'gmail.com',
-    :user_name            => 'webinar.planer',
-    :password             => 'webinaradmin',
+    :user_name            => 'training.planer',
+    :password             => 'trainingadmin',
     :authentication       => 'plain',
     :enable_starttls_auto => true
   }

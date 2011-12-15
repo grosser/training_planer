@@ -1,15 +1,15 @@
-<% @page_title = "Webinar #{@webinar.title}" %>
+<% @page_title = "Training #{@training.title}" %>
 
 <p>
-  Starts at <%= @webinar.start %>
+  Starts at <%= @training.start %>
 </p>
 
 <p>
-  <%= @webinar.description %>
+  <%= @training.description %>
 </p>
 
 <p>
-  Participants <%= @webinar.participations.count %>
+  Participants <%= @training.participations.count %>
 </p>
 
 <br/><br/><br/>
@@ -17,7 +17,7 @@
 <p>
   <h3>RSVP ?</h3>
   <%= form_tag '/participations' do %>
-    <%= hidden_field_tag :webinar_id, @webinar.id %>
+    <%= hidden_field_tag :training_id, @training.id %>
     <%= input_row label_tag('Your Email') do %>
       <%= email_field_tag :email %>
     <% end %>

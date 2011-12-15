@@ -1,5 +1,5 @@
-<% @page_title = (@webinar.new_record? ? 'New Webinar' : "Webinar #{@webinar.title}") %>
-<%= form_for @webinar do |f| %>
+<% @page_title = (@training.new_record? ? 'New Training' : "Training #{@training.title}") %>
+<%= form_for @training do |f| %>
   <%= form_input_row f, :title %>
 
   <%= form_input_row f, :description do %>

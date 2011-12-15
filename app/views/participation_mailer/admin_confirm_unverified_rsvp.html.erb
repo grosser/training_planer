@@ -1,10 +1,10 @@
-<%= @person.email %> wants to participate in <%= link_to @webinar.title, @webinar %>
+<%= @person.email %> wants to participate in <%= link_to @training.title, @training %>
 <br/>
-<%= @webinar.start %><br/>
+<%= @training.start %><br/>
 <br/>
 <br/>
 
 Reason:
 <%= raw @person.reason_to_participate.to_s.strip_tags.gsub(/\r?\n/, br) %>
 
-Confirm person for webinars <b><%= link_to "confirm", confirm_participation_url(UrlStore.encode("#{@person.id}-#{@webinar.id}"), :confirmed_by_admin => true) %></b>
+Confirm person for trainings <b><%= link_to "confirm", confirm_participation_url(UrlStore.encode("#{@person.id}-#{@training.id}"), :confirmed_by_admin => true) %></b>

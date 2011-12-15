@@ -1,16 +1,16 @@
 require 'spec_helper'
 
-describe WebinarsController do
+describe TrainingsController do
   describe "#index" do
     it "renders" do
       get :index
       response.should render_template :index
     end
 
-    it "lists webinars" do
-      webinar = Factory(:webinar)
+    it "lists trainings" do
+      training = Factory(:training)
       get :index
-      assigns(:webinars).should == [webinar]
+      assigns(:trainings).should == [training]
     end
   end
 
@@ -30,18 +30,18 @@ describe WebinarsController do
     it "saves" do
       auth
       lambda{
-        post :create, :webinar => {:title => 'xxx', :start => '2012-01-01 09:00', :description => 'DDD'}
-      }.should change{ Webinar.count }.by +1
+        post :create, :training => {:title => 'xxx', :start => '2012-01-01 09:00', :description => 'DDD'}
+      }.should change{ Training.count }.by +1
 
       flash[:notice].should_not be_blank
-      response.should redirect_to "/webinars/#{Webinar.last.to_param}"
+      response.should redirect_to "/trainings/#{Training.last.to_param}"
     end
 
     it "fails to save" do
       auth
       lambda{
-        post :create, :webinar => {:title => '', :start => '2012-01-01 09:00', :description => 'DDD'}
-      }.should change{ Webinar.count }.by 0
+        post :create, :training => {:title => '', :start => '2012-01-01 09:00', :description => 'DDD'}
+      }.should change{ Training.count }.by 0
 
       flash[:alert].should_not be_blank
       response.should render_template 'new'
@@ -50,7 +50,7 @@ describe WebinarsController do
 
   describe "#show" do
     it "renders" do
-      get :show, :id => Factory(:webinar).to_param
+      get :show, :id => Factory(:training).to_param
       response.should render_template 'show'
     end
   end

@@ -1,4 +1,4 @@
-class Webinar < ActiveRecord::Base
+class Training < ActiveRecord::Base
   validates_presence_of :title, :description
 
   has_many :participations

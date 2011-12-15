@@ -1,10 +1,10 @@
 TrainingPlanner::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  root :to => 'webinars#index'
+  root :to => 'trainings#index'
   match 'home(/:action(/:id(.:format)))', :controller => :home
 
-  resources :webinars
+  resources :trainings
   resources :people
   resources :participations do
     member do

@@ -1,17 +1,17 @@
 require 'spec_helper'
 
-describe "Webinar sign up" do
+describe "Training sign up" do
   let(:person) { Factory(:person) }
-  let(:webinar) { Factory(:webinar) }
+  let(:training) { Factory(:training) }
 
   before do
-    person.verified_for_webinar.should == false
+    person.verified_for_training.should == false
     person.email.should =~ /\.com$/
-    webinar.participations.count.should == 0
+    training.participations.count.should == 0
   end
 
   def rsvp(email)
-    visit webinar_path webinar
+    visit training_path training
     fill_in 'email', :with => email
     fill_in 'reason_to_participate', :with => 'Its me, dont you remember!?'
     click_button "RSVP"
@@ -22,12 +22,12 @@ describe "Webinar sign up" do
     open_email email
     lambda{
       visit_in_email 'confirm'
-    }.should change{ webinar.participations.count }.by +1
+    }.should change{ training.participations.count }.by +1
     wait_until{ page.has_content? 'Success' }
   end
 
   it "allows me to sign up with an verified account" do
-    person.update_attributes!(:verified_for_webinar => true)
+    person.update_attributes!(:verified_for_training => true)
     rsvp person.email
     confirm_via_email person.email
   end
@@ -47,7 +47,7 @@ describe "Webinar sign up" do
     open_email CFG[:admin_email]
     lambda{
       visit_in_email 'confirm'
-    }.should change{ webinar.participations.count }.by +1
+    }.should change{ training.participations.count }.by +1
 
     # person gets a confirmation
     open_email 'new@email.com'

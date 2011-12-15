@@ -1,4 +1,4 @@
 class Participation < ActiveRecord::Base
   belongs_to :person
-  belongs_to :webinar
+  belongs_to :training
 end
