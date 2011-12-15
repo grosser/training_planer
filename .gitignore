@@ -1,2 +1,5 @@
 config/database.yml
 public/assets
+*.DS_STORE
+*.log
+*.db
