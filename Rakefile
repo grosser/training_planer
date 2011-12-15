@@ -5,7 +5,7 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rspec-rails' if ['test','development'].include? Rails.env
 
-WebinarPlaner::Application.load_tasks
+TrainingPlanner::Application.load_tasks
 Dir.glob('app/tasks/*.rake').each { |r| import r }
 
 task(:default).clear
