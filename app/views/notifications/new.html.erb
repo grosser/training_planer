@@ -10,7 +10,7 @@
   <div class="normal_labels">
     <% @notification.people.each do |person| %>
       <div>
-        <%= check_box_with_label 'notification[person_ids][]', person.id, true, person.full_name %>
+        <%= check_box_with_label 'notification[person_ids][]', person.id, true, "#{person.full_name} (#{person.email})" %>
       </div>
     <% end %>
   </div>
