@@ -33,13 +33,3 @@ module Kernel
     Random.new(seed).rand(*args)
   end
 end
-
-class String
-  def silent_interpolate(hash)
-    text = self.dup
-    hash.each do |key,value|
-      text.gsub!("%{#{key}}", value)
-    end
-    text
-  end
-end
