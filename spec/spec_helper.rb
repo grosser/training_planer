@@ -3,6 +3,12 @@ require 'spork'
 ENV["RAILS_ENV"] ||= 'test'
 
 Spork.prefork do
+  if ENV["RUBYMINE_HOME"]
+    puts "Rubymine support"
+    $:.unshift(File.expand_path("rb/testing/patch/common", ENV["RUBYMINE_HOME"]))
+    $:.unshift(File.expand_path("rb/testing/patch/bdd", ENV["RUBYMINE_HOME"]))
+  end
+
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
 
