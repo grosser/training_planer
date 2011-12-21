@@ -23,4 +23,14 @@ class PeopleController < ApplicationController
   def show
     @person = Person.find(params[:id].to_i)
   end
+
+  def update
+    @person = Person.find(params[:id].to_i)
+    if @person.update_attributes(params[:person])
+      redirect_to @person, :notice => :default
+    else
+      flash[:alert] = :default
+      render 'show'
+    end
+  end
 end

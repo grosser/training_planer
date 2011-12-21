@@ -41,7 +41,7 @@ describe PeopleController do
       response.should redirect_to "/people/#{Person.last.to_param.sub(' ','%20')}"
     end
 
-    it "fails to save" do
+    it "fails to save with invalid params" do
       auth
       lambda{
         post :create, :person => {:first_name => 'xxx', :last_name => 'yyy', :email => ''}
@@ -58,6 +58,33 @@ describe PeopleController do
     it "renders" do
       auth
       get :show, :id => Factory(:person).to_param
+      response.should render_template 'show'
+    end
+  end
+
+  describe "#update" do
+    it "is protected" do
+      put :update, :id => 111
+      response.status.should == 401
+    end
+
+    it "updates a person" do
+      auth
+      person = Factory(:person)
+      put :update, :id => person.to_param, :person => {:first_name => 'YYY'}
+
+      person.reload.first_name.should == 'YYY'
+      flash[:notice].should_not be_blank
+      response.should redirect_to "/people/#{Person.last.to_param.sub(' ','%20')}"
+    end
+
+    it "does not update a person when params are invalid" do
+      auth
+      person = Factory(:person)
+      put :update, :id => person.to_param, :person => {:email => ''}
+
+      person.reload.email.should be_present
+      flash[:alert].should_not be_blank
       response.should render_template 'show'
     end
   end
