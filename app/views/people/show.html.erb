@@ -1,14 +1,9 @@
-<% @page_title = "Training #{@person.full_name}" %>
-
-<p>
-  <%= @person.email %>
-</p>
-
-<p>
-  <%= @person.address %>
-</p>
+<% @page_title = @person.full_name %>
 
 <p>
   Trainings <%= @person.participations.count %>
 </p>
+
+<%= render 'form' %>
+
 

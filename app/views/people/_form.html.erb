@@ -1,0 +1,15 @@
+<%= form_for @person do |f| %>
+  <%= form_input_row f, :name do %>
+    <%= f.text_field :first_name %>
+    <%= f.text_field :last_name %>
+  <% end %>
+
+  <%= form_input_row f, :email do %>
+    <%= f.email_field :email %>
+  <% end %>
+  <%= form_input_row f, :address %>
+
+  <div class="actions">
+    <%= form_button f %>
+  </div>
+<% end %>
