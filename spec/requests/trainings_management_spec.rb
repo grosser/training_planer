@@ -21,4 +21,28 @@ describe "Trainings management" do
     page.should have_content('AAAAA')
     training.reload.title.should == 'AAAAA'
   end
+
+  it "allows me to notify participants" do
+    training = Factory(:training)
+    person = Factory(:participation, :training => training).person
+
+    # log in
+    auth
+    visit edit_training_path training
+
+    # send notification
+    visit training_path training
+    click_link 'Notify all'
+
+    fill_in 'notification[subject]', :with => "HELLO"
+    fill_in 'notification[body]', :with => "HELLO WORLD"
+    click_button 'Notify Selected'
+
+    # user received mail?
+    open_email person.email
+    current_email.body.should include('HELLO')
+
+    # redirected back to starting location?
+    current_path.should == training_path(training)
+  end
 end

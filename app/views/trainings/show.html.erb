@@ -10,6 +10,9 @@
 
 <p>
   Participants <%= @training.participations.count %>
+  <% if is_admin? and @training.participations.any? %>
+    <%= link_to 'Notify all', new_notification_path(:notification => {:person_ids => @training.participations.map(&:person_id)}) %>
+  <% end %>
 </p>
 
 <br/><br/><br/>
@@ -32,4 +35,3 @@
     </div>
   <% end %>
 </p>
-

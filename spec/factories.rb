@@ -11,4 +11,9 @@ FactoryGirl.define do
     f.address '123 Wood Street, 94607, Oakland, CA'
     f.email{ "bla#{rand 999999999 }@blub.com" }
   end
+
+  factory :participation do |f|
+    f.association :person
+    f.association :training
+  end
 end

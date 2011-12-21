@@ -23,3 +23,10 @@ def mailbox_for(address)
       (email.bcc && email.bcc.include?(address)) ||
       (email.cc && email.cc.include?(address)) }
 end
+
+def validate_emails_are_sane
+  all_emails.each do |mail|
+    mail.body.should_not =~ /="\/"/ # have a path
+    mail.body.should_not =~ /&gt;|&lt;/ # have escaped < / >
+  end
+end

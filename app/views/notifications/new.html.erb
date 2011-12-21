@@ -1,0 +1,21 @@
+<% @page_title = "New Notification for #{(@notification.person_ids||[]).size} People" %>
+<%= form_for @notification do |f| %>
+  <%= hidden_field_tag :redirect_to, params[:redirect_to] || request.referrer %>
+  <%= form_input_row f, :subject %>
+
+  <%= form_input_row f, :body do %>
+    <%= f.text_area :body, :style => 'height: 200px' %>
+  <% end %>
+
+  <div class="normal_labels">
+    <% @notification.people.each do |person| %>
+      <div>
+        <%= check_box_with_label 'notification[person_ids][]', person.id, true, person.full_name %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Notify Selected', :class => 'btn primary' %>
+  </div>
+<% end %>

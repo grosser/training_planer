@@ -5,6 +5,7 @@ gem 'json'
 gem 'pg'
 gem 'unicorn'
 gem 'rails_admin', :git => "git://github.com/sferik/rails_admin.git"
+gem 'active_form', :git => "git://github.com/cs/active_form.git"
 gem 'will_paginate', '~>3'
 gem 'helpful_fields'
 gem 'url_store'

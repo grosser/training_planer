@@ -1,8 +1,4 @@
-class ParticipationMailer < ActionMailer::Base
-  layout 'email'
-  default :from => "from@example.com"
-  helper :application # :all does not work
-
+class ParticipationMailer < BaseMailer
   def confirm_verified_rsvp(person, training)
     @training = training
     @person = person
