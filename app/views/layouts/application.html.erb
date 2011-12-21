@@ -8,6 +8,10 @@
 <body>
 
 <div class="container">
+  <% if is_admin? %>
+    <div id="admin_indicator">ADMIN</div>
+  <% end %>
+
   <div class="page-header">
     <%= breadcrumb %>
     <h1><%= @page_title %></h1>
