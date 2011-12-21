@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe "People management" do
-  def auth
-    page.driver.browser.basic_authorize  CFG[:basic_auth][:username], CFG[:basic_auth][:password]
-  end
-
   it "allows me to create a new person" do
     auth
     visit "/people/new"

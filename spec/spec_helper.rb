@@ -21,6 +21,8 @@ Spork.prefork do
     config.render_views
     config.include EmailSpec::Helpers
     config.include EmailSpec::Matchers
+    config.include Support::ControllerHelpers, :type => :controller
+    config.include Support::RequestHelpers, :type => :request
   end
 end
 
