@@ -1,16 +1,2 @@
-<% @page_title = (@training.new_record? ? 'New Training' : "Training #{@training.title}") %>
-<%= form_for @training do |f| %>
-  <%= form_input_row f, :title %>
-
-  <%= form_input_row f, :description do %>
-    <%= f.text_area :description, :style => 'height: 200px' %>
-  <% end %>
-
-  <%= form_input_row f, :start do %>
-    <%= f.text_field :start, :placeholder => 'YYYY-MM-DD HH:MM' %>
-  <% end %>
-
-  <div class="actions">
-    <%= form_button f %>
-  </div>
-<% end %>
+<% @page_title = 'New Training' %>
+<%= render 'form' %>

@@ -1,5 +1,5 @@
 class TrainingsController < ApplicationController
-  before_filter :authenticate, :only => [:new, :create]
+  before_filter :authenticate, :only => [:new, :create, :edit, :update]
 
   def index
     @trainings = Training.where('start IS NULL OR start > NOW()').order('start ASC')
@@ -22,5 +22,19 @@ class TrainingsController < ApplicationController
 
   def show
     @training = Training.find(params[:id])
+  end
+
+  def edit
+    @training = Training.find(params[:id])
+  end
+
+  def update
+    @training = Training.find(params[:id].to_i)
+    if @training.update_attributes(params[:training])
+      redirect_to @training, :notice => :default
+    else
+      flash[:alert] = :default
+      render 'edit'
+    end
   end
 end
