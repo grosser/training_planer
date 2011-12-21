@@ -3,8 +3,9 @@
   <%= hidden_field_tag :redirect_to, params[:redirect_to] || request.referrer %>
   <%= form_input_row f, :subject %>
 
-  <%= form_input_row f, :body do %>
-    <%= f.text_area :body, :style => 'height: 200px' %>
+  <% label = "<label>Body<br/><br/><small>%{first_name}<br/>%{full_name}</small></label>" %>
+  <%= input_row label do %>
+    <%= f.text_area :body, :style => 'height: 200px; width: 500px' %>
   <% end %>
 
   <div class="normal_labels">

@@ -1,1 +1,1 @@
-<%= @notification.body.simple_format %>
+<%= @notification.body.simple_format.silent_interpolate(@replacements).html_safe %>
