@@ -35,4 +35,10 @@ module ApplicationHelper
   def form_button(f)
     f.submit (f.object.new_record? ? 'Create' : 'Save'), :class => 'btn primary'
   end
+
+  def breadcrumb
+    if params[:action] != 'index'
+      link_to(controller_name.titleize, :action => :index) + ' &raquo; '.html_safe
+    end
+  end
 end
