@@ -34,6 +34,7 @@ module Kernel
   end
 end
 
+require 'mail'
 class MailInterceptor
   def self.delivering_email(message)
     if Person.where(:email => message.to, :receive_emails => false).any?
