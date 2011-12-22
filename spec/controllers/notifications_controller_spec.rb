@@ -46,4 +46,16 @@ describe NotificationsController do
       response.should render_template 'new'
     end
   end
+
+  describe "#unsubscribe" do
+    it "unsubscribes me from emails" do
+      person = Factory(:person)
+      person.receive_emails.should == true
+
+      get :unsubscribe, :email => person.email
+      person.reload.receive_emails.should == false
+      flash[:notice].should_not be_blank
+      response.should redirect_to '/'
+    end
+  end
 end

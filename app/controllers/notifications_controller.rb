@@ -1,5 +1,5 @@
 class NotificationsController < ApplicationController
-  before_filter :authenticate
+  before_filter :authenticate, :only => [:new, :create]
 
   def new
     @notification = Notification.new(params[:notification])
@@ -16,5 +16,11 @@ class NotificationsController < ApplicationController
       flash[:alert] = :default
       render 'new'
     end
+  end
+
+  def unsubscribe
+    person = Person.find_by_email(params[:email])
+    person.update_attributes!(:receive_emails => false)
+    redirect_to '/', :notice => "You will no longer receive any emails to #{params[:email]} from us!"
   end
 end

@@ -11,7 +11,11 @@ TrainingPlanner::Application.routes.draw do
       get :confirm
     end
   end
-  resources :notifications
+  resources :notifications do
+    collection do
+      get :unsubscribe
+    end
+  end
 
   #   match 'products/:id' => 'catalog#view'
 

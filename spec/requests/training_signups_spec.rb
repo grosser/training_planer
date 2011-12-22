@@ -53,4 +53,22 @@ describe "Training sign up" do
     open_email 'new@email.com'
     current_email.body.should include('has been confirmed!')
   end
+
+  it "allows notified people to opt-out of emails" do
+    # some email comes in
+    person = Factory(:person)
+    training = Factory(:training)
+    person.reload.receive_emails.should == true
+    ParticipationMailer.confirm_verified_rsvp(person, training).deliver
+
+    # person unsubscribe
+    open_email person.email
+    visit_in_email 'unsubscribe'
+    person.reload.receive_emails.should == false
+
+    # no more mail is delivered
+    lambda{
+      ParticipationMailer.confirm_verified_rsvp(person, training).deliver
+    }.should_not change{ deliveries.size }
+  end
 end

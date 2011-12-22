@@ -5,5 +5,9 @@
 </head>
 <body>
   <%= yield %>
+
+  <small>
+    If you do not want to receive any more emails from us, <%= link_to 'unsubscribe', unsubscribe_notifications_path(:email => message.to.first) %> from all emails.
+  </small>
 </body>
 </html>
