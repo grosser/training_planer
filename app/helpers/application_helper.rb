@@ -41,4 +41,8 @@ module ApplicationHelper
       link_to(controller_name.titleize, :action => :index) + ' &raquo; '.html_safe
     end
   end
+
+  def name_for_object(object)
+    "#{object.full_name} (#{object.email})"
+  end
 end

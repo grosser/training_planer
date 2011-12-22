@@ -3,7 +3,7 @@
 <table>
   <% @people.each do |person| %>
     <tr>
-      <td><%= link_to person.full_name, person %></td>
+      <td><%= link_to name_for_object(person), person %></td>
       <td><%= person.email %></td>
       <td><%= person.address %></td>
     </tr>
