@@ -33,3 +33,13 @@ module Kernel
     Random.new(seed).rand(*args)
   end
 end
+
+class MailInterceptor
+  def self.delivering_email(message)
+    if Person.where(:email => message.to, :receive_emails => false).any?
+      message.perform_deliveries = false
+    end
+  end
+end
+
+Mail.register_interceptor(MailInterceptor)
