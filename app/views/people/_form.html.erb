@@ -9,6 +9,26 @@
   <% end %>
   <%= form_input_row f, :address %>
 
+  <% [:verified_for_training, :participated_in_webinar, :received_login, :receive_emails].each do |field| %>
+    <%= form_input_row f, field do %>
+      <%= f.check_box field %>
+    <% end %>
+  <% end %>
+
+  <% if @person.reason_to_participate.present? %>
+    <%= input_row 'Reason to participate' do %>
+      <%= @person.reason_to_participate.simple_format %>
+    <% end %>
+  <% end %>
+
+  <%= input_row 'Created' do %>
+    <%= @person.created_at.to_s(:db) %>
+  <% end %>
+
+  <%= input_row 'Updated' do %>
+    <%= @person.updated_at.to_s(:db) %>
+  <% end %>
+
   <div class="actions">
     <%= form_button f %>
   </div>
