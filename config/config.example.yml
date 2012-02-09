@@ -1,0 +1,16 @@
+common: &common
+  api:
+  basic_auth:
+    username: user
+    password: pass
+  admin_email: admin@example.com
+
+test:
+  <<: *common
+
+development:
+  <<: *common
+
+production:
+  <<: *common
+  admin_email: admin@example.com
